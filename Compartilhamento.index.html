@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologias para Cadeia de Suprimentos Colaborativa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #2980b9;
+            --neutral: #95a5a6;
+            --erp: #9b59b6;
+            --scm: #2ecc71;
+            --cloud: #e67e22;
+            --integration: #3498db;
+            --analytics: #f1c40f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--info));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: white;
+            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .tech-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .tech-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tech-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .erp .tech-header { background: var(--erp); }
+        .scm .tech-header { background: var(--scm); }
+        .cloud .tech-header { background: var(--cloud); }
+        .integration .tech-header { background: var(--integration); }
+        .analytics .tech-header { background: var(--analytics); }
+        
+        .tech-body {
+            padding: 25px;
+        }
+        
+        .tech-body ul {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .tech-body li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .tech-body li:before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+        
+        .icon-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .icon-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .icon-link:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .erp .icon-link:hover { background: var(--erp); }
+        .scm .icon-link:hover { background: var(--scm); }
+        .cloud .icon-link:hover { background: var(--cloud); }
+        .integration .icon-link:hover { background: var(--integration); }
+        .analytics .icon-link:hover { background: var(--analytics); }
+        
+        .architecture {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .architecture-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .architecture-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .layer {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .layer-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            color: var(--primary);
+        }
+        
+        .layer-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .comparison {
+            background: linear-gradient(to right, var(--info), var(--primary));
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .comparison-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .approach {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .approach h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .approach ul {
+            list-style-type: none;
+        }
+        
+        .approach li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .approach li:before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .interactive-demo {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+        
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .demo-panel {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .demo-panel h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .api-demo {
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            height: 200px;
+            overflow-y: auto;
+        }
+        
+        .data-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: var(--info);
+        }
+        
+        .benefits {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .benefits-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .benefit-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .erp .benefit-icon { color: var(--erp); }
+        .scm .benefit-icon { color: var(--scm); }
+        .cloud .benefit-icon { color: var(--cloud); }
+        .integration .benefit-icon { color: var(--integration); }
+        .analytics .benefit-icon { color: var(--analytics); }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .erp .stat-value { color: var(--erp); }
+        .scm .stat-value { color: var(--scm); }
+        .cloud .stat-value { color: var(--cloud); }
+        .integration .stat-value { color: var(--integration); }
+        .analytics .stat-value { color: var(--analytics); }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--neutral);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div>
+                    <h1>Tecnologias para Cadeia de Suprimentos Colaborativa</h1>
+                    <p class="subtitle">Sistemas integrados, plataformas em nuvem, padrões de comunicação e análise de dados</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="section-title">
+                <h2>Tecnologias Habilitadoras da Colaboração na Cadeia de Suprimentos</h2>
+            </div>
+            
+            <div class="stat-cards">
+                <div class="stat-card erp">
+                    <div class="stat-value">30%</div>
+                    <div class="stat-label">Aumento de eficiência com ERP</div>
+                </div>
+                
+                <div class="stat-card scm">
+                    <div class="stat-value">25%</div>
+                    <div class="stat-label">Redução de estoques com SCM</div>
+                </div>
+                
+                <div class="stat-card cloud">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">Economia com plataformas em nuvem</div>
+                </div>
+                
+                <div class="stat-card integration">
+                    <div class="stat-value">60%</div>
+                    <div class="stat-label">Mais velocidade com EDI/API</div>
+                </div>
+                
+                <div class="stat-card analytics">
+                    <div class="stat-value">35%</div>
+                    <div class="stat-label">Melhor previsão com BI</div>
+                </div>
+            </div>
+            
+            <div class="tech-container">
+                <div class="tech-card erp">
+                    <div class="tech-header">
+                        <i class="fas fa-chart-pie"></i> Sistemas ERP Integrados
+                    </div>
+                    <div class="tech-body">
+                        <p>Enterprise Resource Planning - Sistemas integrados que unificam os processos de negócio.</p>
+                        <ul>
+                            <li>Gestão financeira e contábil</li>
+                            <li>Controle de produção e estoques</li>
+                            <li>Gestão de compras e vendas</li>
+                            <li>Recursos humanos e folha de pagamento</li>
+                            <li>Relatórios e Business Intelligence</li>
+                            <li>Integração com outros sistemas</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.sap.com/brazil/products/erp.html" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.oracle.com/erp/what-is-erp/" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card scm">
+                    <div class="tech-header">
+                        <i class="fas fa-truck-loading"></i> Sistemas SCM
+                    </div>
+                    <div class="tech-body">
+                        <p>Supply Chain Management - Especializados na gestão da cadeia de suprimentos.</p>
+                        <ul>
+                            <li>Planejamento de demanda</li>
+                            <li>Gestão de estoques</li>
+                            <li>Logística e transporte</li>
+                            <li>Gestão de fornecedores</li>
+                            <li>Monitoramento em tempo real</li>
+                            <li>Análise de performance</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.ibm.com/topics/supply-chain-management" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.oracle.com/scm/" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card cloud">
+                    <div class="tech-header">
+                        <i class="fas fa-cloud"></i> Plataformas Colaborativas em Nuvem
+                    </div>
+                    <div class="tech-body">
+                        <p>Soluções baseadas em nuvem para colaboração entre parceiros da cadeia de suprimentos.</p>
+                        <ul>
+                            <li>Acesso remoto e seguro</li>
+                            <li>Escalabilidade sob demanda</li>
+                            <li>Atualizações automáticas</li>
+                            <li>Integração simplificada</li>
+                            <li>Modelo de assinatura (SaaS)</li>
+                            <li>Backup e recuperação de desastres</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://aws.amazon.com/pt/types-of-cloud-computing/" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://azure.microsoft.com/pt-br/overview/what-is-cloud-computing" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-container">
+                <div class="tech-card integration">
+                    <div class="tech-header">
+                        <i class="fas fa-plug"></i> Padrões de Comunicação (EDI/API)
+                    </div>
+                    <div class="tech-body">
+                        <p>Protocolos e padrões para troca eletrônica de dados entre sistemas.</p>
+                        <ul>
+                            <li>EDI (Eletronic Data Interchange)</li>
+                            <li>APIs (Application Programming Interfaces)</li>
+                            <li>Webservices e SOAP/REST</li>
+                            <li>JSON e XML para troca de dados</li>
+                            <li>Protocolos de segurança e autenticação</li>
+                            <li>Padrões setoriais específicos</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.ibm.com/topics/edi" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://aws.amazon.com/pt/what-is/api/" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tech-card analytics">
+                    <div class="tech-header">
+                        <i class="fas fa-brain"></i> Análise Preditiva e Business Intelligence
+                    </div>
+                    <div class="tech-body">
+                        <p>Ferramentas avançadas para análise de dados e suporte à decisão.</p>
+                        <ul>
+                            <li>Painéis e dashboards interativos</li>
+                            <li>Previsão de demanda</li>
+                            <li>Análise de desempenho (KPIs)</li>
+                            <li>Alertas automáticos e proativos</li>
+                            <li>Machine Learning e IA</li>
+                            <li>Relatórios personalizados</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.tableau.com/learn/articles/business-intelligence" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://powerbi.microsoft.com/pt-br/" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="architecture">
+                <h3 class="architecture-title">Arquitetura de Sistemas Integrados</h3>
+                <div class="architecture-diagram">
+                    <div class="layer">
+                        <div class="layer-header">Camada de Apresentação</div>
+                        <div class="layer-item">Interface do Usuário</div>
+                        <div class="layer-item">Dashboards</div>
+                        <div class="layer-item">Relatórios</div>
+                    </div>
+                    
+                    <div class="layer">
+                        <div class="layer-header">Camada de Aplicação</div>
+                        <div class="layer-item">ERP</div>
+                        <div class="layer-item">SCM</div>
+                        <div class="layer-item">CRM</div>
+                    </div>
+                    
+                    <div class="layer">
+                        <div class="layer-header">Camada de Integração</div>
+                        <div class="layer-item">APIs</div>
+                        <div class="layer-item">Web Services</div>
+                        <div class="layer-item">EDI</div>
+                    </div>
+                    
+                    <div class="layer">
+                        <div class="layer-header">Camada de Dados</div>
+                        <div class="layer-item">Banco de Dados</div>
+                        <div class="layer-item">Data Warehouse</div>
+                        <div class="layer-item">Big Data</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-demo">
+                <h3 class="demo-title">Demonstração de Integração via API</h3>
+                <div class="demo-container">
+                    <div class="demo-panel">
+                        <h3>Requisição API</h3>
+                        <div class="api-demo" id="apiRequest">
+                            // Exemplo de requisição para obter dados de estoque
+                            GET /api/inventory/levels
+                            Headers: {
+                              "Authorization": "Bearer token123",
+                              "Content-Type": "application/json"
+                            }
+                            Parameters: {
+                              "productId": "PRD-2023-001",
+                              "warehouseId": "WH-01"
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel">
+                        <h3>Resposta API</h3>
+                        <div class="api-demo" id="apiResponse">
+                            // Resposta do servidor
+                            Status: 200 OK
+                            {
+                              "productId": "PRD-2023-001",
+                              "productName": "Tablet XYZ Advanced",
+                              "warehouseId": "WH-01",
+                              "currentStock": 142,
+                              "reservedStock": 28,
+                              "availableStock": 114,
+                              "reorderLevel": 50,
+                              "expectedReplenishment": "2023-11-15",
+                              "status": "OK"
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" id="sendRequest">Enviar Requisição</button>
+                    <button class="control-btn" id="simulateError">Simular Erro</button>
+                    <button class="control-btn" id="resetDemo">Reiniciar</button>
+                </div>
+            </div>
+            
+            <div class="comparison">
+                <h3 class="comparison-title">Sistemas Tradicionais vs. Sistemas Integrados</h3>
+                <div class="comparison-grid">
+                    <div class="approach">
+                        <h3><i class="fas fa-times-circle"></i> Sistemas Isolados</h3>
+                        <ul>
+                            <li>Dados fragmentados em silos</li>
+                            <li>Processos manuais de integração</li>
+                            <li>Visibilidade limitada da cadeia</li>
+                            <li>Maior probabilidade de erros</li>
+                            <li>Atualizações lentas e complexas</li>
+                            <li>Alto custo de manutenção</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="approach">
+                        <h3><i class="fas fa-check-circle"></i> Sistemas Integrados</h3>
+                        <ul>
+                            <li>Dados unificados e consistentes</li>
+                            <li>Processos automatizados</li>
+                            <li>Visibilidade completa em tempo real</li>
+                            <li>Maior precisão e confiabilidade</li>
+                            <li>Atualizações em tempo real</li>
+                            <li>Redução de custos operacionais</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="benefits">
+                <h3 class="benefits-title">Benefícios da Integração de Sistemas</h3>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item erp">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Melhoria de 25-40% na eficiência operacional</h4>
+                        <p>Processos automatizados e eliminação de retrabalho</p>
+                    </div>
+                    
+                    <div class="benefit-item scm">
+                        <div class="benefit-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <h4>Redução de 20-30% nos níveis de estoque</h4>
+                        <p>Visibilidade em tempo real permite estoques mais enxutos</p>
+                    </div>
+                    
+                    <div class="benefit-item cloud">
+                        <div class="benefit-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>Economia de 30-50% em custos de TI</h4>
+                        <p>Modelo cloud reduz investimento em infraestrutura</p>
+                    </div>
+                    
+                    <div class="benefit-item integration">
+                        <div class="benefit-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Processos 60% mais rápidos</h4>
+                        <p>Comunicação direta entre sistemas elimina etapas manuais</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Tecnologias para Cadeia de Suprimentos Colaborativa - Sistemas Integrados, Plataformas em Nuvem e Análise de Dados</p>
+            <p>Desenvolvido para o grupo: AL CASP DÊNIS, AL CASP GEIDIONE, AL CASP FARIAS, AL CASP JOYLSON, AL CASP ELDER RAFAEL e AL CASP KLEBER</p>
+        </footer>
+    </div>
+
+    <script>
+        // Interatividade para os cards de tecnologia
+        document.querySelectorAll('.tech-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+                    this.classList.toggle('active');
+                }
+            });
+        });
+        
+        // Demonstração interativa da API
+        const apiRequest = document.getElementById('apiRequest');
+        const apiResponse = document.getElementById('apiResponse');
+        
+        document.getElementById('sendRequest').addEventListener('click', () => {
+            apiResponse.innerHTML = `// Resposta do servidor
+Status: 200 OK
+{
+  "productId": "PRD-2023-001",
+  "productName": "Tablet XYZ Advanced",
+  "warehouseId": "WH-01",
+  "currentStock": ${Math.floor(Math.random() * 200) + 50},
+  "reservedStock": ${Math.floor(Math.random() * 50) + 10},
+  "availableStock": ${Math.floor(Math.random() * 150) + 30},
+  "reorderLevel": 50,
+  "expectedReplenishment": "2023-11-15",
+  "status": "OK"
+}`;
+            
+            apiResponse.style.color = '#27ae60';
+        });
+        
+        document.getElementById('simulateError').addEventListener('click', () => {
+            apiResponse.innerHTML = `// Resposta do servidor
+Status: 503 Service Unavailable
+{
+  "error": "DatabaseConnectionError",
+  "message": "Unable to connect to inventory database",
+  "timestamp": "2023-11-05T14:32:18Z",
+  "requestId": "req-7d3f5a2c"
+}`;
+            
+            apiResponse.style.color = '#e74c3c';
+        });
+        
+        document.getElementById('resetDemo').addEventListener('click', () => {
+            apiResponse.innerHTML = `// Resposta do servidor
+Status: 200 OK
+{
+  "productId": "PRD-2023-001",
+  "productName": "Tablet XYZ Advanced",
+  "warehouseId": "WH-01",
+  "currentStock": 142,
+  "reservedStock": 28,
+  "availableStock": 114,
+  "reorderLevel": 50,
+  "expectedReplenishment": "2023-11-15",
+  "status": "OK"
+}`;
+            
+            apiResponse.style.color = '#333';
+        });
+    </script>
+</body>
+</html>

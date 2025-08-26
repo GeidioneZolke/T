@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estratégias de Resiliência na Cadeia de Suprimentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #2980b9;
+            --neutral: #95a5a6;
+            --diversification: #9b59b6;
+            --shared-inventory: #2ecc71;
+            --contingency: #e67e22;
+            --monitoring: #3498db;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--info));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: white;
+            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .strategies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .strategy {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .strategy:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .strategy-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .diversification .strategy-header { background: var(--diversification); }
+        .shared-inventory .strategy-header { background: var(--shared-inventory); }
+        .contingency .strategy-header { background: var(--contingency); }
+        .monitoring .strategy-header { background: var(--monitoring); }
+        
+        .strategy-body {
+            padding: 25px;
+        }
+        
+        .strategy-body ul {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .strategy-body li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .strategy-body li:before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+        
+        .icon-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .icon-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .icon-link:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .diversification .icon-link:hover { background: var(--diversification); }
+        .shared-inventory .icon-link:hover { background: var(--shared-inventory); }
+        .contingency .icon-link:hover { background: var(--contingency); }
+        .monitoring .icon-link:hover { background: var(--monitoring); }
+        
+        .interactive-demo {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .demo-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .demo-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-panel h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .supplier-map {
+            height: 300px;
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .supplier-node {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .supplier-node.primary {
+            background: var(--success);
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .supplier-node.alternative {
+            background: var(--accent);
+        }
+        
+        .supplier-node.disrupted {
+            background: var(--secondary);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .risk-dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .risk-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .risk-item.critical {
+            background: #ffeaea;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .risk-item.warning {
+            background: #fff4e6;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .risk-item.normal {
+            background: #e9f7ef;
+            border-left: 4px solid var(--success);
+        }
+        
+        .risk-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .risk-critical .risk-icon { background: var(--secondary); }
+        .risk-warning .risk-icon { background: var(--warning); }
+        .risk-normal .risk-icon { background: var(--success); }
+        
+        .risk-content {
+            flex: 1;
+        }
+        
+        .risk-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .risk-level {
+            height: 100%;
+            border-radius: 3px;
+        }
+        
+        .risk-critical .risk-level { 
+            background: var(--secondary);
+            width: 90%;
+        }
+        
+        .risk-warning .risk-level { 
+            background: var(--warning);
+            width: 65%;
+        }
+        
+        .risk-normal .risk-level { 
+            background: var(--success);
+            width: 30%;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: var(--info);
+        }
+        
+        .benefits {
+            background: linear-gradient(to right, var(--info), var(--primary));
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .benefits-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .implementation {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .implementation-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .diversification .stat-value { color: var(--diversification); }
+        .shared-inventory .stat-value { color: var(--shared-inventory); }
+        .contingency .stat-value { color: var(--contingency); }
+        .monitoring .stat-value { color: var(--monitoring); }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--neutral);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div>
+                    <h1>Estratégias de Resiliência na Cadeia de Suprimentos</h1>
+                    <p class="subtitle">Diversificação, estoque compartilhado, planos de contingência e monitoramento em tempo real</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="section-title">
+                <h2>Estratégias para uma Cadeia de Suprimentos Resiliente</h2>
+            </div>
+            
+            <div class="stat-cards">
+                <div class="stat-card diversification">
+                    <div class="stat-value">65%</div>
+                    <div class="stat-label">Mais resistente a disruptions com diversificação</div>
+                </div>
+                
+                <div class="stat-card shared-inventory">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">Redução de custos com estoque compartilhado</div>
+                </div>
+                
+                <div class="stat-card contingency">
+                    <div class="stat-value">70%</div>
+                    <div class="stat-label">Recuperação mais rápida com planos de contingência</div>
+                </div>
+                
+                <div class="stat-card monitoring">
+                    <div class="stat-value">80%</div>
+                    <div class="stat-label">Problemas detectados antecipadamente com monitoramento</div>
+                </div>
+            </div>
+            
+            <div class="strategies-container">
+                <div class="strategy diversification">
+                    <div class="strategy-header">
+                        <i class="fas fa-project-diagram"></i> Diversificação de Fornecedores
+                    </div>
+                    <div class="strategy-body">
+                        <p>Estratégia de multisourcing para reduzir dependência de fornecedores únicos e mitigar riscos.</p>
+                        <ul>
+                            <li>Fornecedores primários e alternativos</li>
+                            <li>Distribuição geográfica estratégica</li>
+                            <li>Avaliação contínua de desempenho</li>
+                            <li>Diferentes regiões e países</li>
+                            <li>Capacidade de transferência rápida</li>
+                            <li>Contratos flexíveis e escaláveis</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.mckinsey.com/business-functions/operations/our-insights/supplier-diversity-and-inclusion-supporting-economic-equity-and-business-resilience" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://hbr.org/2020/07/how-to-diversify-your-supply-chain" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy shared-inventory">
+                    <div class="strategy-header">
+                        <i class="fas fa-warehouse"></i> Estoque de Segurança Compartilhado
+                    </div>
+                    <div class="strategy-body">
+                        <p>Modelo colaborativo onde parceiros compartilham recursos de estoque para otimizar custos e disponibilidade.</p>
+                        <ul>
+                            <li>Pool de recursos entre empresas</li>
+                            <li>Redução de custos de armazenagem</li>
+                            <li>Maior disponibilidade com menos investimento</li>
+                            <li>Acordos de compartilhamento claros</li>
+                            <li>Sistema de rastreamento unificado</li>
+                            <li>Reposição automática entre parceiros</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www2.deloitte.com/us/en/insights/industry/retail-distribution/supply-chain-inventory-management.html" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.supplychaindive.com/news/collaborative-inventory-management-supply-chain-resilience/600200/" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy contingency">
+                    <div class="strategy-header">
+                        <i class="fas fa-clipboard-list"></i> Planos de Contingência Colaborativos
+                    </div>
+                    <div class="strategy-body">
+                        <p>Preparação antecipada e coordenada com parceiros para responder eficazmente a disruptions.</p>
+                        <ul>
+                            <li>Protocolos de resposta a incidentes</li>
+                            <li>Simulações e testes regulares</li>
+                            <li>Comunicação de crise integrada</li>
+                            <li>Fornecedores alternativos pré-qualificados</li>
+                            <li>Rotas logísticas alternativas</li>
+                            <li>Planos de recuperação gradual</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.ibm.com/downloads/cas/OJDVQ0MN" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.gartner.com/smarterwithgartner/5-steps-to-build-supply-chain-resilience" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy monitoring">
+                    <div class="strategy-header">
+                        <i class="fas fa-binoculars"></i> Monitoramento de Riscos em Tempo Real
+                    </div>
+                    <div class="strategy-body">
+                        <p>Sistemas avançados para detectar e alertar sobre riscos potencialmente disruptivos.</p>
+                        <ul>
+                            <li>Painéis de monitoramento em tempo real</li>
+                            <li>Alertas automáticos de possíveis disruptions</li>
+                            <li>Análise preditiva de riscos</li>
+                            <li>Indicadores de desempenho críticos (KPIs)</li>
+                            <li>Monitoramento de condições climáticas e geopolíticas</li>
+                            <li>Relatórios de saúde da cadeia de suprimentos</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.mckinsey.com/business-functions/risk/our-insights/using-ai-to-monitor-supply-chain-risk" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.risk.net/definition/supply-chain-risk-management" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-demo">
+                <h3 class="demo-title">Demonstração Interativa de Resiliência na Cadeia</h3>
+                <div class="demo-container">
+                    <div class="demo-panel">
+                        <h3>Diversificação de Fornecedores</h3>
+                        <div class="supplier-map">
+                            <div class="supplier-node primary" style="top: 40%; left: 30%;" title="Fornecedor Principal - Ásia">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="supplier-node alternative" style="top: 20%; left: 60%;" title="Fornecedor Alternativo - Europa">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="supplier-node alternative" style="top: 70%; left: 50%;" title="Fornecedor Alternativo - América do Sul">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="supplier-node alternative" style="top: 50%; left: 75%;" title="Fornecedor Alternativo - América do Norte">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                        </div>
+                        <div class="controls">
+                            <button class="control-btn" id="disruptSupplier">Simular Disruption</button>
+                            <button class="control-btn" id="activateBackup">Ativar Fornecedor Alternativo</button>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel">
+                        <h3>Monitoramento de Riscos em Tempo Real</h3>
+                        <div class="risk-dashboard">
+                            <div class="risk-item risk-critical">
+                                <div class="risk-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="risk-content">
+                                    <div>Fornecedor Principal - Alto Risco</div>
+                                    <div class="risk-bar">
+                                        <div class="risk-level"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="risk-item risk-warning">
+                                <div class="risk-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="risk-content">
+                                    <div>Atraso na Logística - Risco Moderado</div>
+                                    <div class="risk-bar">
+                                        <div class="risk-level"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="risk-item risk-normal">
+                                <div class="risk-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="risk-content">
+                                    <div>Estoque Disponível - Baixo Risco</div>
+                                    <div class="risk-bar">
+                                        <div class="risk-level"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="controls">
+                            <button class="control-btn" id="updateRisks">Atualizar Monitoramento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="benefits">
+                <h3 class="benefits-title">Benefícios das Estratégias de Resiliência</h3>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>Redução de 50-70% no impacto de disruptions</h4>
+                        <p>Capacidade de manter operações durante crises</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>Economia de 20-40% em custos de estoque</h4>
+                        <p>Otimização de recursos através do compartilhamento</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Recuperação 60% mais rápida após disruptions</h4>
+                        <p>Planos pré-definidos agilizam a resposta</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Melhoria de 35% na confiabilidade de entrega</h4>
+                        <p>Menor dependência de fontes únicas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implementation">
+                <h3 class="implementation-title">Implementação de Estratégias de Resiliência</h3>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Análise de Vulnerabilidades</h4>
+                        <p>Identificar pontos fracos e dependências críticas na cadeia</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Desenvolvimento de Estratégias</h4>
+                        <p>Criar planos específicos para cada tipo de risco identificado</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Estabelecimento de Parcerias</h4>
+                        <p>Engajar fornecedores alternativos e parceiros logísticos</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Implementação de Tecnologia</h4>
+                        <p>Adotar sistemas de monitoramento e alertas em tempo real</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <h4>Testes e Simulações</h4>
+                        <p>Realizar exercícios regulares para validar os planos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Estratégias de Resiliência na Cadeia de Suprimentos - Diversificação, Estoques Compartilhados, Contingência e Monitoramento</p>
+            <p>Desenvolvido para o grupo: AL CASP DÊNIS, AL CASP GEIDIONE, AL CASP FARIAS, AL CASP JOYLSON, AL CASP ELDER RAFAEL e AL CASP KLEBER</p>
+        </footer>
+    </div>
+
+    <script>
+        // Interatividade para as estratégias
+        document.querySelectorAll('.strategy').forEach(strategy => {
+            strategy.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+                    this.classList.toggle('active');
+                }
+            });
+        });
+        
+        // Demonstração interativa de diversificação de fornecedores
+        const supplierNodes = document.querySelectorAll('.supplier-node');
+        const disruptBtn = document.getElementById('disruptSupplier');
+        const activateBackupBtn = document.getElementById('activateBackup');
+        const updateRisksBtn = document.getElementById('updateRisks');
+        const riskItems = document.querySelectorAll('.risk-item');
+        
+        disruptBtn.addEventListener('click', () => {
+            // Encontrar o fornecedor principal
+            const primarySupplier = document.querySelector('.supplier-node.primary');
+            if (primarySupplier) {
+                primarySupplier.classList.add('disrupted');
+                disruptBtn.disabled = true;
+                activateBackupBtn.disabled = false;
+                
+                // Atualizar o dashboard de riscos
+                riskItems[0].classList.add('risk-critical');
+                riskItems[0].classList.remove('risk-warning', 'risk-normal');
+            }
+        });
+        
+        activateBackupBtn.addEventListener('click', () => {
+            // Encontrar o fornecedor principal disruptado
+            const disruptedSupplier = document.querySelector('.supplier-node.disrupted');
+            if (disruptedSupplier) {
+                disruptedSupplier.classList.remove('disrupted');
+                disruptedSupplier.classList.remove('primary');
+                disruptedSupplier.classList.add('alternative');
+                
+                // Ativar um fornecedor alternativo como novo principal
+                const alternativeSuppliers = document.querySelectorAll('.supplier-node.alternative:not(.disrupted)');
+                if (alternativeSuppliers.length > 0) {
+                    const newPrimary = alternativeSuppliers[0];
+                    newPrimary.classList.remove('alternative');
+                    newPrimary.classList.add('primary');
+                    
+                    // Restaurar botões
+                    disruptBtn.disabled = false;
+                    activateBackupBtn.disabled = true;
+                    
+                    // Atualizar o dashboard de riscos
+                    riskItems[0].classList.remove('risk-critical');
+                    riskItems[0].classList.add('risk-normal');
+                }
+            }
+        });
+        
+        updateRisksBtn.addEventListener('click', () => {
+            // Simular mudanças aleatórias no status de risco
+            riskItems.forEach(item => {
+                const random = Math.random();
+                item.classList.remove('risk-critical', 'risk-warning', 'risk-normal');
+                
+                if (random < 0.3) {
+                    item.classList.add('risk-critical');
+                } else if (random < 0.7) {
+                    item.classList.add('risk-warning');
+                } else {
+                    item.classList.add('risk-normal');
+                }
+            });
+        });
+        
+        // Adicionar interatividade aos nós do fornecedor
+        supplierNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                alert(node.getAttribute('title'));
+            });
+        });
+    </script>
+</body>
+</html>

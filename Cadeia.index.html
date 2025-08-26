@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colaboração na Cadeia de Suprimentos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #2980b9;
+            --neutral: #95a5a6;
+            --data-sharing: #9b59b6;
+            --demand-planning: #2ecc71;
+            --vmi: #e67e22;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--info));
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: white;
+            color: var(--primary);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .pillars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .pillar {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pillar-header {
+            padding: 25px;
+            color: white;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .data-sharing .pillar-header { background: var(--data-sharing); }
+        .demand-planning .pillar-header { background: var(--demand-planning); }
+        .vmi .pillar-header { background: var(--vmi); }
+        
+        .pillar-body {
+            padding: 25px;
+        }
+        
+        .pillar-body ul {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .pillar-body li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .pillar-body li:before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+        }
+        
+        .icon-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .icon-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .icon-link:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .data-sharing .icon-link:hover { background: var(--data-sharing); }
+        .demand-planning .icon-link:hover { background: var(--demand-planning); }
+        .vmi .icon-link:hover { background: var(--vmi); }
+        
+        .comparison {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .comparison-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .approach {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .approach h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .approach ul {
+            list-style-type: none;
+        }
+        
+        .approach li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .approach li:before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .traditional h3 {
+            color: var(--secondary);
+        }
+        
+        .collaborative h3 {
+            color: var(--success);
+        }
+        
+        .benefits {
+            background: linear-gradient(to right, var(--info), var(--primary));
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .benefits-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .implementation {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .implementation-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .interactive-demo {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+        
+        .slider-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        
+        .slider-page {
+            min-width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .slider-btn {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .slider-btn:hover {
+            background: var(--info);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div>
+                    <h1>Colaboração na Cadeia de Suprimentos</h1>
+                    <p class="subtitle">Compartilhamento de dados, planejamento conjunto e gestão colaborativa de estoques</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="section-title">
+                <h2>Pilares da Colaboração na Cadeia de Suprimentos</h2>
+            </div>
+            
+            <div class="pillars-container">
+                <div class="pillar data-sharing">
+                    <div class="pillar-header">
+                        <i class="fas fa-database"></i> Compartilhamento de Dados e Recursos
+                    </div>
+                    <div class="pillar-body">
+                        <p>Troca transparente de informações entre todos os elos da cadeia para melhorar a visibilidade e a tomada de decisões.</p>
+                        <ul>
+                            <li>Dados de vendas em tempo real</li>
+                            <li>Níveis de estoque compartilhados</li>
+                            <li>Previsões de demanda atualizadas</li>
+                            <li>Informações sobre capacidade produtiva</li>
+                            <li>Dados logísticos e de transporte</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.gs1.org/standards" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.ibm.com/topics/data-sharing" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pillar demand-planning">
+                    <div class="pillar-header">
+                        <i class="fas fa-chart-line"></i> Planejamento Conjunto de Demanda
+                    </div>
+                    <div class="pillar-body">
+                        <p>Processo colaborativo onde fornecedores e clientes trabalham juntos para prever a demanda futura.</p>
+                        <ul>
+                            <li>Compartilhamento de previsões de vendas</li>
+                            <li>Análise conjunta de tendências de mercado</li>
+                            <li>Planejamento de promoções e lançamentos</li>
+                            <li>Revisões periódicas dos planos</li>
+                            <li>Ajustes em tempo real conforme mudanças</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.ibf.org/" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.sap.com/products/scm/demand-planning.html" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pillar vmi">
+                    <div class="pillar-header">
+                        <i class="fas fa-warehouse"></i> Gestão de Estoques Colaborativa (VMI)
+                    </div>
+                    <div class="pillar-body">
+                        <p>Modelo onde o fornecedor é responsável por gerenciar os estoques do cliente, com base em informações compartilhadas.</p>
+                        <ul>
+                            <li>Fornecedor monitora níveis de estoque</li>
+                            <li>Reposição automática com base em limites pré-definidos</li>
+                            <li>Redução de rupturas e excessos de estoque</li>
+                            <li>Melhoria no nível de serviço</li>
+                            <li>Redução de custos para ambas as partes</li>
+                        </ul>
+                        <div class="icon-links">
+                            <a href="https://www.sap.com/resources/what-is-vendor-managed-inventory-vmi.html" class="icon-link" target="_blank">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a href="https://www.mhlnews.com/technology-automation/article/22054900/what-is-vendormanaged-inventory-vmi" class="icon-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison">
+                <h3 class="comparison-title">Abordagem Tradicional vs. Colaborativa</h3>
+                <div class="comparison-grid">
+                    <div class="approach traditional">
+                        <h3><i class="fas fa-times-circle"></i> Abordagem Tradicional</h3>
+                        <ul>
+                            <li>Informações fragmentadas e isoladas</li>
+                            <li>Previsões de demanda inconsistentes</li>
+                            <li>Excesso de estoques como proteção</li>
+                            <li>Relação transacional entre empresas</li>
+                            <li>Maior probabilidade de rupturas</li>
+                            <li>Altos custos logísticos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="approach collaborative">
+                        <h3><i class="fas fa-check-circle"></i> Abordagem Colaborativa</h3>
+                        <ul>
+                            <li>Compartilhamento de informações em tempo real</li>
+                            <li>Previsões de demanda consolidadas e precisas</li>
+                            <li>Estoques otimizados e reduzidos</li>
+                            <li>Relação estratégica e de parceria</li>
+                            <li>Redução significativa de rupturas</li>
+                            <li>Otimização de custos para toda a cadeia</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-demo">
+                <h3 class="demo-title">Simulação de VMI (Vendor Managed Inventory)</h3>
+                <div class="slider-container">
+                    <div class="slider">
+                        <div class="slider-page">
+                            <i class="fas fa-warehouse" style="font-size: 48px; color: var(--vmi); margin-bottom: 20px;"></i>
+                            <h4>Estoque Inicial</h4>
+                            <p>Nível atual: 150 unidades</p>
+                            <p>Ponto de ressuprimento: 50 unidades</p>
+                            <p>Meta de estoque: 200 unidades</p>
+                        </div>
+                        <div class="slider-page">
+                            <i class="fas fa-shopping-cart" style="font-size: 48px; color: var(--vmi); margin-bottom: 20px;"></i>
+                            <h4>Vendas Realizadas</h4>
+                            <p>Vendas do dia: 45 unidades</p>
+                            <p>Novo nível de estoque: 105 unidades</p>
+                            <p>Status: Acima do ponto de ressuprimento</p>
+                        </div>
+                        <div class="slider-page">
+                            <i class="fas fa-truck-loading" style="font-size: 48px; color: var(--vmi); margin-bottom: 20px;"></i>
+                            <h4>Pedido Automático</h4>
+                            <p>Estoque atual: 60 unidades (abaixo do ponto de ressuprimento)</p>
+                            <p>Pedido automático gerado: 140 unidades</p>
+                            <p>Entrega programada para 24h</p>
+                        </div>
+                        <div class="slider-page">
+                            <i class="fas fa-boxes" style="font-size: 48px; color: var(--vmi); margin-bottom: 20px;"></i>
+                            <h4>Estoque Reposto</h4>
+                            <p>Recebimento: 140 unidades</p>
+                            <p>Novo nível de estoque: 200 unidades</p>
+                            <p>Status: Estoque na meta estabelecida</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prev-btn"><i class="fas fa-arrow-left"></i> Anterior</button>
+                    <button class="slider-btn" id="next-btn">Próximo <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="benefits">
+                <h3 class="benefits-title">Benefícios da Colaboração na Cadeia de Suprimentos</h3>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Aumento de 5-15% na precisão das previsões</h4>
+                        <p>Previsões mais precisas resultam em estoques mais enxutos</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h4>Redução de 10-30% nos custos de estoque</h4>
+                        <p>Menor capital imobilizado em inventário</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4>Melhoria de 20-40% no nível de serviço</h4>
+                        <p>Menos rupturas e maior disponibilidade de produtos</p>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Fortalecimento dos relacionamentos</h4>
+                        <p>Parcerias estratégicas no lugar de relações transacionais</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implementation">
+                <h3 class="implementation-title">Implementação da Colaboração na Cadeia</h3>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Estabelecer Confiança</h4>
+                        <p>Desenvolver relações transparentes com parceiros estratégicos</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Definir Processos</h4>
+                        <p>Criar fluxos claros de compartilhamento de informações</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Implementar Tecnologia</h4>
+                        <p>Adotar sistemas integrados (ERP, SCM) e padrões (EDI)</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Treinar Equipes</h4>
+                        <p>Capacitar colaboradores para trabalhar de forma colaborativa</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <h4>Monitorar e Ajustar</h4>
+                        <p>Acompanhar resultados e fazer melhorias contínuas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Colaboração na Cadeia de Suprimentos - Compartilhamento de Dados, Planejamento Conjunto e VMI</p>
+            <p>Desenvolvido para o grupo: AL CASP DÊNIS, AL CASP GEIDIONE, AL CASP FARIAS, AL CASP JOYLSON, AL CASP ELDER RAFAEL e AL CASP KLEBER</p>
+        </footer>
+    </div>
+
+    <script>
+        // Interatividade para os cards
+        document.querySelectorAll('.pillar').forEach(pillar => {
+            pillar.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+                    this.classList.toggle('active');
+                }
+            });
+        });
+        
+        // Controles do slider interativo
+        const slider = document.querySelector('.slider');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        let currentSlide = 0;
+        const totalSlides = 4;
+        
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        });
+        
+        // Animação automática do slider
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }, 5000);
+    </script>
+</body>
+</html>
